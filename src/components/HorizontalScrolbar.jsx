@@ -2,17 +2,14 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import Slider from "react-slick";
 import BodyPart from "./BodyPart";
-import leftArrowImage from "../assets/icons/left-arrow.png"
-import rightArrowImage from "../assets/icons/right-arrow.png"
+import ExerciseCard from "./ExerciseCard";
+import leftArrowImage from "../assets/icons/left-arrow.png";
+import rightArrowImage from "../assets/icons/right-arrow.png";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-
-
-const HorizontalScrolbar = ({ data, bodyPart, setBodyPart }) => {
-
-
+const HorizontalScrolbar = ({ data, bodyPart, setBodyPart, isBodyparts }) => {
   const CustomNextArrow = (props) => {
     const { onClick } = props;
     return (
@@ -21,7 +18,7 @@ const HorizontalScrolbar = ({ data, bodyPart, setBodyPart }) => {
       </Typography>
     );
   };
-  
+
   const CustomPrevArrow = (props) => {
     const { onClick } = props;
     return (
@@ -31,13 +28,11 @@ const HorizontalScrolbar = ({ data, bodyPart, setBodyPart }) => {
     );
   };
 
-
   const breakpoints = [
     { min: 1200, max: 1500, slidesToShow: 4, slidesToScroll: 4 },
     { min: 992, max: 1199, slidesToShow: 3, slidesToScroll: 3 },
     { min: 768, max: 991, slidesToShow: 2, slidesToScroll: 2 },
     { min: 480, max: 767, slidesToShow: 1, slidesToScroll: 1 },
-    
   ];
 
   const responsiveSettings = breakpoints.map((bp) => ({
@@ -61,7 +56,6 @@ const HorizontalScrolbar = ({ data, bodyPart, setBodyPart }) => {
   };
 
   return (
-
     <Slider {...sliderSettings}>
       {data.map((item) => (
         <Box
@@ -70,7 +64,10 @@ const HorizontalScrolbar = ({ data, bodyPart, setBodyPart }) => {
           title={item.id || item}
           m="0 40px"
         >
-          <BodyPart item={item} bodyPart={bodyPart} setBodyPart={setBodyPart} />
+         {
+        isBodyparts ?   <BodyPart item={item} bodyPart={bodyPart} setBodyPart={setBodyPart} />
+           : <ExerciseCard exercise={item}/>
+        }
         </Box>
       ))}
     </Slider>
